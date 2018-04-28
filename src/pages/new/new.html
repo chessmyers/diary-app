@@ -2,18 +2,46 @@
 
   <ion-navbar>
     <ion-title>New</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only>
-        <ion-icon name="trash"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
-
-</ion-header>
 
 </ion-header>
 
 
 <ion-content padding>
 
+  <form #f="ngForm" (ngSubmit)="onAddItem(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Entry Title</ion-label>
+        <ion-input type="text" name="title" ngModel required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Date</ion-label>
+        <ion-datetime displayFormat="DDDD, MMMM D, YYYY" pickerFormat="MMM D YYYY" name="date" ngModel required></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Mood</ion-label>
+        <ion-select name="mood" ngModel required>
+          <ion-option *ngFor="let g of moods" [value]="g">{{ g }}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-textarea name="description" ngModel required></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-grid>
+      <ion-row>
+
+        <ion-col col-6>
+          <button ion-button block text-center color="danger" (click)="clearForm(f)">Clear</button>
+        </ion-col>
+
+        <ion-col col-6>
+          <button ion-button block text-center type="submit" color="secondary" [disabled]="!f.valid">Save</button>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>

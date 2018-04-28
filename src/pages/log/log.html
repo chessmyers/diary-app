@@ -1,15 +1,9 @@
-<!--
-  Generated template for the LogPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
     <ion-title>Log</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="showSettings()">
         <ion-icon name="settings"></ion-icon>
       </button>
     </ion-buttons>
@@ -19,7 +13,25 @@
 
 
 <ion-content padding>
+  <h1 *ngIf="showEmpt">Log Is Currently Empty!</h1>
   <ion-list *ngFor="let entry of entries">
-    <ion-item></ion-item>
+    <ion-item-sliding>
+    <ion-item (click)="goToViewEntry(entry)" [color]="logCol">
+      <h1>{{ entry.title }}</h1>
+      <h3>{{ entry.date }}</h3>
+      <h3>{{ entry.mood }}</h3>
+      <p>{{ entry.desc }}</p>
+    </ion-item>
+    <ion-item-options side="right">
+      <button ion-button color="danger" (click)="onRemoveEntry(entries.indexOf(entry))">
+        <ion-icon name="trash"></ion-icon>
+        Delete
+      </button>
+      <button ion-button color="secondary" (click)="onEditEntry(entries.indexOf(entry))">
+        <ion-icon name="create"></ion-icon>
+        Edit
+      </button>
+    </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>

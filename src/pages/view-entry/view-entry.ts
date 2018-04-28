@@ -1,25 +1,31 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams } from 'ionic-angular';
+import { Entry } from '../../models/entry';
 
-/**
- * Generated class for the ViewEntryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-view-entry',
   templateUrl: 'view-entry.html',
 })
 export class ViewEntryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private navCtrl: NavController, private navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ViewEntryPage');
-  }
+private data: Entry;
+private title: string;
+private date: string;
+private mood: string;
+private desc: string;
 
+  ionViewWillEnter() {
+    this.data = this.navParams.data;
+    this.title = this.data.title;
+    this.date = this.data.date;
+    this.mood = this.data.mood;
+    this.desc = this.data.desc;
+    console.log(this.data);
+    console.log(this.data.title)
+    console.log(this.title);
+    console.log(this.date);
+  }
 }
