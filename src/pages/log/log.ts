@@ -6,6 +6,7 @@ import { ViewEntryPage } from '../view-entry/view-entry';
 import { EditEntryPage } from '../edit-entry/edit-entry';
 import { SettingsService } from '../../services/settings';
 import { ActionSheetController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-log',
@@ -14,7 +15,8 @@ import { ActionSheetController } from 'ionic-angular';
 export class LogPage {
 
     constructor(private logEntryService: LogEntryService, private navController: NavController,
-      private settServ: SettingsService, private actionSheetController: ActionSheetController) {}
+      private settServ: SettingsService, private actionSheetController: ActionSheetController,
+      private alertCtrl: AlertController) {}
 
 entries: Entry[] = [];
 logCol = "light";
@@ -26,9 +28,15 @@ showEmpt = false;
     this.checkEmpt();
   }
 
+  ionViewDidLoad() {
+    this.logEntryService.loadData();
+    this.entries = this.logEntryService.getEntries();
+  }
+
   onRemoveEntry(index: number) {
     this.logEntryService.removeEntry(index);
     this.checkEmpt();
+    this.logEntryService.savaData();
   }
 
   onEditEntry(index: number) {
@@ -93,6 +101,15 @@ showEmpt = false;
       ]
     });
     actionSheet.present();
+  }
+
+  showAppInfo() {
+    let alert = this.alertCtrl.create({
+      title: 'App Info',
+      subTitle: 'This app was created by Christoper Myers for the Loyola High School AP Computer Science Principles Create Task.',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 

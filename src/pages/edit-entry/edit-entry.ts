@@ -35,6 +35,7 @@ export class EditEntryPage {
   onAddItem(form: NgForm) {
       var e = new Entry(form.value.title,form.value.date,form.value.mood,form.value.description);
       this.LEservice.editEntry(this.index,e);
+      this.LEservice.savaData();
       this.navCtrl.pop();
   }
 
